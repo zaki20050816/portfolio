@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zakaria Atrous • Portfolio</title>
+    <link rel="icon" type="image/png" href="images/profile.jpg">
+    <meta name="description" content="Frontend Developer & UI/UX Designer based in Biskra, Algeria.">
+    <meta name="author" content="Zakaria Atrous">
+    <meta name="theme-color" content="#2563eb">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    display: ['"Space Grotesk"', 'sans-serif'],
+                },
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#4f46e5',
+                        dark: '#050505',
+                        surface: '#0a0a0a',
+                        whatsapp: '#25D366',
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+                        'marquee': 'marquee 30s linear infinite',
+                        'spin-slow': 'spin 15s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'text-reveal': 'textReveal 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)', filter: 'blur(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)', filter: 'blur(0)' },
+                        },
+                        textReveal: {
+                            '0%': { transform: 'translateY(100%)' },
+                            '100%': { transform: 'translateY(0)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ===== EXISTING PORTFOLIO STYLES ===== */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+        .dark .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+        }
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        .preserve-3d { transform-style: preserve-3d; }
+        .perspective-1000 { perspective: 1000px; }
+        .parallax-img { will-change: transform; }
+        #preloader { transition: opacity 0.6s cubic-bezier(0.2,0.8,0.2,1), visibility 0.6s; }
+        #preloader.hide { opacity: 0; visibility: hidden; }
+        .toast-enter { transform: translateY(100%) scale(0.9); opacity: 0; }
+        .toast-enter-active { transform: translateY(0) scale(1); opacity: 1; transition: all 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+        .toast-exit { transform: translateY(0) scale(1); opacity: 1; }
+        .toast-exit-active { transform: translateY(20px) scale(0.9); opacity: 0; transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1); }
+        *:focus-visible { outline: 2px solid #2563eb; outline-offset: 4px; }
+        .filter-btn.active { background-color: #2563eb; color: white; border-color: #2563eb; }
+        .spotlight-card { position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.4s ease; }
+        .spotlight-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+        .dark .spotlight-card:hover { box-shadow: 0 20px 40px -10px rgba(255,255,255,0.05); }
+        .spotlight-overlay { pointer-events: none; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(37,99,235,0.1), transparent 40%); z-index: 20; }
+        .spotlight-card:hover .spotlight-overlay { opacity: 1; }
+        .reveal-on-scroll { opacity: 0; filter: blur(10px); transform: translateY(30px) scale(0.95); transition: all 1s cubic-bezier(0.2,0.8,0.2,1); will-change: opacity,filter,transform; }
+        .reveal-on-scroll.is-visible { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+        .delay-75 { transition-delay: 75ms; }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-150 { transition-delay: 150ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .hero-badge, .hero-heading-line, .hero-description, .hero-buttons, .hero-image-container { opacity: 0; animation: fadeUp 1s cubic-bezier(0.2,0.8,0.2,1) forwards; animation-fill-mode: forwards; }
+        .hero-badge { animation-delay: 0.2s; }
+        .hero-heading-line:nth-child(1) { animation-delay: 0.4s; }
+        .hero-heading-line:nth-child(2) { animation-delay: 0.55s; }
+        .hero-heading-line:nth-child(3) { animation-delay: 0.7s; }
+        .hero-description { animation-delay: 0.9s; }
+        .hero-buttons { animation-delay: 1.1s; }
+        .hero-image-container { animation-delay: 0.3s; }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-badge, .hero-heading-line, .hero-description, .hero-buttons, .hero-image-container { opacity: 1 !important; animation: none !important; }
+        }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .bento-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .bento-card:hover { transform: translateY(-4px); }
+        @keyframes gradient-x { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .animate-gradient-x { animation: gradient-x 4s ease infinite; background-size: 200% auto; }
+
+        /* ===== CV MODAL STYLES ===== */
+        #cv-modal { display: none; position: fixed; inset: 0; z-index: 200; overflow-y: auto; }
+        #cv-modal.open { display: flex; align-items: flex-start; justify-content: center; }
+        #cv-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); }
+        #cv-modal-box {
+            position: relative;
+            z-index: 10;
+            background: white;
+            width: 100%;
+            max-width: 860px;
+            margin: 32px 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+            animation: cvSlideIn 0.4s cubic-bezier(0.2,0.8,0.2,1) forwards;
+        }
+        @keyframes cvSlideIn {
+            from { opacity: 0; transform: translateY(40px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ===== CV INTERNAL STYLES ===== */
+        :root {
+            --cv-primary: #2563eb;
+            --cv-accent: #4f46e5;
+            --cv-dark: #0f172a;
+            --cv-gray: #64748b;
+            --cv-border: #e2e8f0;
+        }
+        .cv-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            padding: 32px 36px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 28px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cv-header::before {
+            content: '';
+            position: absolute; top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cv-photo {
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 3px solid var(--cv-primary);
+            object-fit: cover; position: relative; z-index: 1;
+            box-shadow: 0 0 0 5px rgba(37,99,235,0.2);
+        }
+        .cv-header-info { position: relative; z-index: 1; }
+        .cv-name { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: 4px; }
+        .cv-title { font-size: 12px; font-weight: 600; color: var(--cv-primary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+        .cv-contacts { display: flex; flex-wrap: wrap; gap: 12px; }
+        .cv-contact-item { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.2s; }
+        .cv-contact-item:hover { color: var(--cv-primary); }
+        .cv-contact-item i { color: var(--cv-primary); font-size: 10px; width: 13px; text-align: center; }
+        .cv-body { display: grid; grid-template-columns: 1fr 220px; }
+        .cv-main { padding: 24px 28px; border-right: 1px solid var(--cv-border); }
+        .cv-sidebar { padding: 24px 20px; background: #f8fafc; }
+        .cv-section { margin-bottom: 22px; }
+        .cv-section:last-child { margin-bottom: 0; }
+        .cv-section-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+            color: var(--cv-primary); text-transform: uppercase; letter-spacing: 2.5px;
+            margin-bottom: 12px; padding-bottom: 7px; border-bottom: 2px solid var(--cv-primary);
+        }
+        .cv-summary { font-size: 12px; color: var(--cv-gray); line-height: 1.7; }
+        .cv-exp-item { margin-bottom: 14px; }
+        .cv-exp-item:last-child { margin-bottom: 0; }
+        .cv-exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2px; }
+        .cv-exp-title { font-size: 12.5px; font-weight: 700; color: var(--cv-dark); }
+        .cv-exp-date { font-size: 10.5px; color: var(--cv-primary); font-weight: 600; white-space: nowrap; }
+        .cv-exp-company { font-size: 11px; color: var(--cv-gray); margin-bottom: 5px; font-style: italic; }
+        .cv-exp-desc { padding-left: 10px; border-left: 2px solid var(--cv-border); }
+        .cv-exp-desc li { list-style: none; position: relative; padding-left: 12px; font-size: 11px; color: #475569; line-height: 1.6; margin-bottom: 2px; }
+        .cv-exp-desc li::before { content: '▸'; position: absolute; left: 0; color: var(--cv-primary); font-size: 8px; top: 3px; }
+        .cv-proj-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--cv-border); display: grid; grid-template-columns: 1fr auto; gap: 6px; }
+        .cv-proj-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .cv-proj-name { font-size: 12px; font-weight: 700; color: var(--cv-dark); margin-bottom: 3px; }
+        .cv-proj-desc { font-size: 11px; color: var(--cv-gray); line-height: 1.5; margin-bottom: 5px; }
+        .cv-tech-list { display: flex; flex-wrap: wrap; gap: 3px; }
+        .cv-tech-badge { font-size: 9.5px; font-weight: 600; padding: 2px 7px; border-radius: 20px; background: rgba(37,99,235,0.08); color: var(--cv-primary); border: 1px solid rgba(37,99,235,0.2); }
+        .cv-proj-year { font-size: 10px; color: var(--cv-primary); font-weight: 700; white-space: nowrap; }
+        .cv-edu-item { margin-bottom: 12px; }
+        .cv-edu-item:last-child { margin-bottom: 0; }
+        .cv-edu-degree { font-size: 11.5px; font-weight: 700; color: var(--cv-dark); line-height: 1.3; margin-bottom: 2px; }
+        .cv-edu-school { font-size: 10.5px; color: var(--cv-gray); margin-bottom: 2px; }
+        .cv-edu-year { font-size: 10px; color: var(--cv-primary); font-weight: 600; }
+        .cv-skill-group { margin-bottom: 10px; }
+        .cv-skill-group-name { font-size: 9.5px; font-weight: 700; color: #334155; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .cv-skill-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+        .cv-skill-tag { font-size: 9.5px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: white; color: #475569; border: 1px solid var(--cv-border); }
+        .cv-skill-tag.cv-primary { background: var(--cv-primary); color: white; border-color: var(--cv-primary); }
+        .cv-lang-item { margin-bottom: 8px; }
+        .cv-lang-header { display: flex; justify-content: space-between; margin-bottom: 3px; }
+        .cv-lang-name { font-size: 11px; font-weight: 600; color: var(--cv-dark); }
+        .cv-lang-level { font-size: 9.5px; color: var(--cv-gray); }
+        .cv-lang-bar { height: 3px; background: var(--cv-border); border-radius: 4px; overflow: hidden; }
+        .cv-lang-fill { height: 100%; background: linear-gradient(90deg, var(--cv-primary), var(--cv-accent)); border-radius: 4px; }
+        .cv-soft-list { list-style: none; }
+        .cv-soft-list li { font-size: 11px; color: var(--cv-gray); padding: 3px 0; display: flex; align-items: center; gap: 5px; }
+        .cv-soft-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--cv-primary); flex-shrink: 0; }
+        .cv-download-bar { background: var(--cv-dark); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .cv-download-brand { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: white; }
+        .cv-download-brand span { color: var(--cv-primary); }
+        .cv-dl-btn { display: flex; align-items: center; gap: 7px; background: var(--cv-primary); color: white; border: none; padding: 9px 20px; border-radius: 50px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .cv-dl-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.4); }
+        @media print {
+            #cv-modal-backdrop, #cv-modal-close, .cv-download-bar { display: none !important; }
+            #cv-modal { display: block !important; overflow: visible !important; }
+            #cv-modal-box { margin: 0; border-radius: 0; box-shadow: none; max-width: 100%; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 dark:bg-dark dark:text-slate-200 transition-colors duration-500 selection:bg-primary selection:text-white overflow-x-hidden">
+
+    <div class="fixed inset-0 z-[1] bg-noise pointer-events-none opacity-40 mix-blend-overlay"></div>
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[9999] bg-slate-50 dark:bg-dark flex items-center justify-center">
+        <div class="flex flex-col items-center gap-4">
+            <div class="relative w-16 h-16">
+                <div class="absolute inset-0 border-4 border-slate-200 dark:border-white/10 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
+            </div>
+            <span class="text-sm font-bold tracking-widest uppercase animate-pulse">Loading...</span>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+    <div class="fixed inset-0 z-0 bg-grid-pattern pointer-events-none"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none opacity-50 dark:opacity-20 z-0"></div>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-6">
+        <nav class="bg-white/70 dark:bg-surface/70 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-full px-6 py-3 flex items-center gap-8 shadow-sm transition-all duration-300 w-full max-w-4xl justify-between md:justify-start">
+            <a href="#" class="text-xl font-bold font-display tracking-tight text-slate-900 dark:text-white hoverable magnetic-btn focus:outline-none relative z-20">
+               Zakaria <span class="text-primary">.</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium ml-auto relative z-20" id="desktop-menu">
+                <a href="#home" class="nav-link text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors hoverable magnetic-btn">Home</a>
+                <a href="#about" class="nav-link text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors hoverable magnetic-btn">About</a>
+                <a href="#work" class="nav-link text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors hoverable magnetic-btn">Projects</a>
+                <a href="#contact" class="nav-link text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors hoverable magnetic-btn">Contact</a>
+                <!-- CV BUTTON -->
+                <button onclick="openCV()" class="px-5 py-2 bg-primary text-white rounded-full font-bold text-xs hover:bg-primary/90 hover:scale-105 transition-all hoverable magnetic-btn flex items-center gap-2">
+                    <i class="fas fa-file-alt text-xs"></i> My CV
+                </button>
+                <a href="#contact" class="px-5 py-2 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-bold text-xs hover:scale-105 transition-transform hoverable magnetic-btn">Hire Me</a>
+            </div>
+            <div class="flex items-center gap-3 md:ml-4 border-l border-slate-200 dark:border-white/10 pl-4 md:pl-6 relative z-20">
+                <button id="theme-toggle" aria-label="Toggle Dark Mode" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors hoverable magnetic-btn focus:outline-none">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden text-slate-900 dark:text-white p-1 hoverable magnetic-btn focus:outline-none">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-all duration-300">
+        <a href="#home" class="text-3xl font-display font-bold mobile-link hover:text-primary hoverable">Home</a>
+        <a href="#about" class="text-3xl font-display font-bold mobile-link hover:text-primary hoverable">About</a>
+        <a href="#work" class="text-3xl font-display font-bold mobile-link hover:text-primary hoverable">Projects</a>
+        <a href="#contact" class="text-3xl font-display font-bold mobile-link hover:text-primary hoverable">Contact</a>
+        <button onclick="openCV(); toggleMenu();" class="text-3xl font-display font-bold hover:text-primary hoverable">CV</button>
+        <button id="close-menu" aria-label="Close Menu" class="absolute top-8 right-8 text-slate-500 hover:text-black dark:hover:text-white hoverable">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="section-spy relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10 max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left order-2 lg:order-1">
+                    <div class="hero-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-sm mb-6">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Available for work</span>
+                    </div>
+                    <h1 class="font-display text-5xl md:text-7xl lg:text-[6rem] font-bold leading-[1.1] md:leading-[0.9] tracking-tight mb-6 text-slate-900 dark:text-white">
+                        <div class="hero-heading-line overflow-hidden"><span class="block">Frontend</span></div>
+                        <div class="hero-heading-line overflow-hidden pb-2"><span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-secondary animate-gradient-x bg-[length:200%_auto]">Experience</span></div>
+                        <div class="hero-heading-line overflow-hidden"><span class="block">Digital.</span></div>
+                    </h1>
+                    <p class="hero-description text-lg text-slate-600 dark:text-slate-400 max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed">
+                        Transforming complex ideas into high-performance <span class="text-slate-900 dark:text-white font-semibold">aesthetically pleasing</span> interactive websites.
+                    </p>
+                    <div class="hero-buttons flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#work" class="group relative px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-bold overflow-hidden hover:scale-[1.02] transition-transform shadow-xl shadow-primary/10 hoverable magnetic-btn focus:outline-none">
+                            <span class="relative z-10">See My Work</span>
+                            <div class="absolute inset-0 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                        </a>
+                        <a href="#contact" class="flex items-center justify-center w-12 h-12 rounded-full border border-slate-200 dark:border-white/20 hover:border-primary hover:text-primary transition-colors hoverable magnetic-btn focus:outline-none" aria-label="Go to Contact">
+                            <i class="fas fa-arrow-down animate-bounce"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image-container relative h-[400px] md:h-[600px] flex items-center justify-center order-1 lg:order-2 perspective-1000">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+                    <div class="hero-circle-outer absolute w-64 h-64 md:w-96 md:h-96 border border-slate-200 dark:border-white/10 rounded-full animate-spin-slow"></div>
+                    <div class="hero-circle-middle absolute w-48 h-48 md:w-72 md:h-72 border border-dashed border-slate-300 dark:border-white/20 rounded-full animate-spin-slow [animation-direction:reverse]"></div>
+                    <div class="hero-profile-img hero-image-glow relative w-56 h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-white/10 shadow-2xl animate-[float_6s_ease-in-out_infinite] z-10 group cursor-pointer hoverable magnetic-btn">
+                        <img src="images/profile.jpg" alt="Zakaria" width="600" height="600" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-spy py-20 bg-white/50 dark:bg-white/5 border-y border-slate-200 dark:border-white/5 backdrop-blur-sm relative z-10">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20 reveal-on-scroll">
+                <div>
+                    <p class="text-primary text-sm font-bold uppercase tracking-widest mb-4">About Me</p>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">Crafting Digital<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Experiences</span></h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-5">
+                        Hi, I'm <span class="text-slate-900 dark:text-white font-semibold">Zakaria Atrous </span> — a Frontend Developer and UI/UX Designer based in Biskra, Algeria. I specialize in building high-performance, visually engaging web and mobile applications that users love.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                        Currently pursuing my Licence's degree in Computer Science at the University of Biskra, I blend academic knowledge with real-world freelance experience. I care deeply about clean code, intuitive interfaces, and delivering solutions that truly make an impact.
+                    </p>
+                    <div class="flex flex-wrap gap-6 text-sm text-slate-600 dark:text-slate-400">
+                        <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary"></span><span><strong class="text-slate-900 dark:text-white">2+</strong> Years Freelancing</span></div>
+                        <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary"></span><span><strong class="text-slate-900 dark:text-white">10+</strong> Projects Delivered</span></div>
+                        <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary"></span><span><strong class="text-slate-900 dark:text-white">100%</strong> Passion Driven</span></div>
+                    </div>
+                </div>
+                <div class="relative flex justify-center lg:justify-end">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-3xl blur-2xl"></div>
+                    <div class="relative bg-white dark:bg-surface border border-slate-200 dark:border-white/10 rounded-3xl p-8 max-w-sm w-full shadow-xl">
+                        <div class="flex items-center gap-4 mb-6">
+                            <img src="images/profile.jpg" alt="Abdelmounieme" class="w-16 h-16 rounded-full object-cover border-2 border-primary">
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white">Zakaria</h4>
+                                <p class="text-slate-500 text-sm">Frontend Dev & UI/UX Designer</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-sm"><span class="text-slate-500">UI/UX Design</span><span class="font-bold text-slate-900 dark:text-white">90%</span></div>
+                            <div class="w-full bg-slate-100 dark:bg-white/10 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width:90%"></div></div>
+                            <div class="flex justify-between text-sm"><span class="text-slate-500">Frontend Development</span><span class="font-bold text-slate-900 dark:text-white">85%</span></div>
+                            <div class="w-full bg-slate-100 dark:bg-white/10 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width:85%"></div></div>
+                            <div class="flex justify-between text-sm"><span class="text-slate-500">Mobile Development</span><span class="font-bold text-slate-900 dark:text-white">75%</span></div>
+                            <div class="w-full bg-slate-100 dark:bg-white/10 rounded-full h-1.5"><div class="bg-primary h-1.5 rounded-full" style="width:75%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-12 reveal-on-scroll">My Arsenal<span class="text-primary">.</span></h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[500px]">
+                <!-- Card 1 -->
+                <div class="bento-card spotlight-card col-span-1 md:col-span-2 bg-slate-100 dark:bg-surface border border-slate-200 dark:border-white/10 rounded-3xl p-8 flex flex-col justify-between overflow-hidden relative group hoverable reveal-on-scroll">
+                    <div class="spotlight-overlay"></div>
+                    <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Main Technologies</h3>
+                        <p class="text-slate-500 text-sm">Tools & languages I use to build modern applications.</p>
+                    </div>
+                    <div class="absolute bottom-8 left-0 right-0 w-full overflow-hidden">
+                        <div class="flex gap-10 animate-marquee whitespace-nowrap opacity-50 group-hover:opacity-100 transition-opacity will-change-transform">
+                            <span class="text-5xl font-display font-bold text-slate-300 dark:text-slate-700">HTML CSS JAVASCRIPT TYPESCRIPT REACT NEXTJS TAILWIND PHP FLUTTER JAVA MYSQL FIREBASE</span>
+                            <span class="text-5xl font-display font-bold text-slate-300 dark:text-slate-700">HTML CSS JAVASCRIPT TYPESCRIPT REACT NEXTJS TAILWIND PHP FLUTTER JAVA MYSQL FIREBASE</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bento-card spotlight-card col-span-1 bg-slate-900 text-white rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden hoverable reveal-on-scroll delay-100">
+                    <div class="spotlight-overlay"></div>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary blur-3xl opacity-30 rounded-full"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 text-2xl animate-spin-slow">🌍</div>
+                        <h3 class="text-xl font-bold mb-1">Based in</h3>
+                        <p class="text-slate-400">Biskra-Ourlal</p>
+                    </div>
+                    <div class="relative z-10">
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Local Time</p>
+                        <p id="local-time" class="text-3xl font-display font-bold font-mono">00:00</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bento-card spotlight-card col-span-1 bg-white dark:bg-surface border border-slate-200 dark:border-white/10 rounded-3xl p-8 flex flex-col justify-center gap-6 hoverable reveal-on-scroll delay-200">
+                    <div class="spotlight-overlay"></div>
+                    <div class="relative z-10">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-wide">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Open for Projects
+                        </span>
+                    </div>
+                    <div class="flex gap-4 text-2xl text-slate-600 dark:text-slate-400 relative z-10">
+                        <a href="https://github.com/zaki20050816" class="hover:text-primary transition-colors hover:scale-110 transform"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/abd-el-mouneime-essayd-589a63304" class="hover:text-primary transition-colors hover:scale-110 transform"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/share/1E81CSEzfq/" class="hover:text-primary transition-colors hover:scale-110 transform"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/__zakaria___213_?vrfl=Ymx2NWQ2am05dm9h" target="_blank" class="hover:text-primary transition-colors hover:scale-110 transform"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="bento-card spotlight-card col-span-1 md:col-span-2 bg-gradient-to-br from-primary to-secondary text-white rounded-3xl p-8 flex flex-col justify-center relative overflow-hidden hoverable reveal-on-scroll delay-300">
+                    <div class="spotlight-overlay"></div>
+                    <i class="fas fa-quote-right absolute top-8 right-8 text-6xl text-white/10"></i>
+                    <div class="relative z-10 max-w-lg w-full">
+                        <h3 class="text-xl md:text-2xl font-display font-bold leading-relaxed mb-4 text-right" dir="rtl">"إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ"</h3>
+                        <p class="text-base md:text-lg text-white/90 font-sans tracking-wide leading-normal text-left" dir="ltr">"Verily, Allah loves that when any of you does a job, he does it with mastery."</p>
+                    </div>
+                    <p class="mt-5 text-white/80 text-sm font-sans relative z-10 text-left" dir="ltr">— Prophet Muhammad (ﷺ)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills/Services Section -->
+    <section id="services" class="section-spy py-24 relative z-10">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Skills<span class="text-primary">.</span></h2>
+                <p class="text-slate-500 max-w-lg mx-auto">Providing comprehensive digital solutions to help your business grow.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-white dark:bg-surface border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 group hoverable reveal-on-scroll spotlight-card">
+                    <div class="spotlight-overlay"></div>
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 text-2xl group-hover:bg-primary group-hover:text-white transition-colors relative z-10"><i class="fas fa-layer-group"></i></div>
+                    <h3 class="text-xl font-bold font-display text-slate-900 dark:text-white mb-3 relative z-10">UI/UX Design</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed relative z-10">Creating intuitive and visually engaging interfaces, focused on a seamless user experience.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-white dark:bg-surface border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 group hoverable reveal-on-scroll delay-100 spotlight-card">
+                    <div class="spotlight-overlay"></div>
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 text-2xl group-hover:bg-primary group-hover:text-white transition-colors relative z-10"><i class="fas fa-code"></i></div>
+                    <h3 class="text-xl font-bold font-display text-slate-900 dark:text-white mb-3 relative z-10">Web Development</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed relative z-10">Building responsive, high-performance websites and web applications using modern technologies like React, Next.js, and Tailwind CSS.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-white dark:bg-surface border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 group hoverable reveal-on-scroll delay-200 spotlight-card">
+                    <div class="spotlight-overlay"></div>
+                    <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 text-2xl group-hover:bg-primary group-hover:text-white transition-colors relative z-10"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 class="text-xl font-bold font-display text-slate-900 dark:text-white mb-3 relative z-10">Mobile App Development</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed relative z-10">Developing cross-platform mobile applications using Flutter or Java (Android) for broader user reach.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Timeline -->
+    <section id="education" class="section-spy py-24 bg-slate-50 dark:bg-[#080808]">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-16 text-center reveal-on-scroll">Education & Journey<span class="text-primary">.</span></h2>
+            <div class="relative border-l border-slate-200 dark:border-white/10 ml-4 md:ml-10 space-y-12">
+                <div class="relative pl-8 md:pl-12 group reveal-on-scroll">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary/20"></span>
+                    <div class="flex flex-col sm:flex-row gap-2 sm:items-center mb-2"><h3 class="text-xl font-bold font-display text-slate-900 dark:text-white">Baccalaureate</h3><span class="text-xs font-bold px-2 py-1 rounded bg-slate-200 dark:bg-white/10">2023</span></div>
+                    <p class="text-primary font-medium mb-2">Algeria</p>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-2xl">Successfully obtained the Algerian Baccalaureate degree, marking the official starting point of my higher education.</p>
+                </div>
+                <div class="relative pl-8 md:pl-12 group reveal-on-scroll delay-75">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+                    <div class="flex flex-col sm:flex-row gap-2 sm:items-center mb-2"><h3 class="text-xl font-bold font-display text-slate-900 dark:text-white">Started CS Degree</h3><span class="text-xs font-bold px-2 py-1 rounded bg-slate-200 dark:bg-white/10">2023</span></div>
+                    <p class="text-primary font-medium mb-2">Mohamed Khider University</p>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-2xl">Started learning programming fundamentals, algorithms, and software engineering at university.</p>
+                </div>
+                <div class="relative pl-8 md:pl-12 group reveal-on-scroll delay-100">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+                    <div class="flex flex-col sm:flex-row gap-2 sm:items-center mb-2"><h3 class="text-xl font-bold font-display text-slate-900 dark:text-white">Freelance Career</h3><span class="text-xs font-bold px-2 py-1 rounded bg-slate-200 dark:bg-white/10">2024 – Present</span></div>
+                    <p class="text-primary font-medium mb-2">Independent Freelancer</p>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-2xl">Stepped into the professional market, working on diverse software projects and delivering tailored tech solutions for clients.</p>
+                </div>
+                <div class="relative pl-8 md:pl-12 group reveal-on-scroll delay-150">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+                    <div class="flex flex-col sm:flex-row gap-2 sm:items-center mb-2"><h3 class="text-xl font-bold font-display text-slate-900 dark:text-white">Licence's Degree in Computer Science</h3><span class="text-xs font-bold px-2 py-1 rounded bg-slate-200 dark:bg-white/10">2023 – 2026</span></div>
+                    <p class="text-primary font-medium mb-2">University of Biskra</p>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-2xl">Studied core areas including software engineering, databases, web development, algorithms, and networking.</p>
+                </div>
+                <div class="relative pl-8 md:pl-12 group reveal-on-scroll delay-200">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+                    <div class="flex flex-col sm:flex-row gap-2 sm:items-center mb-2"><h3 class="text-xl font-bold font-display text-slate-900 dark:text-white">Master's Degree in Computer Science</h3><span class="text-xs font-bold px-2 py-1 rounded bg-slate-200 dark:bg-white/10">2026 – Present</span></div>
+                    <p class="text-primary font-medium mb-2">University of Biskra</p>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-2xl">Currently pursuing a Master's degree with a focus on advanced software development, system design, and emerging technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECTS — FIXED ===== -->
+    <section id="work" class="section-spy py-24 relative z-10">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 reveal-on-scroll">
+                <h2 class="font-display text-4xl md:text-6xl font-bold text-slate-900 dark:text-white">Projects<br>Selected<span class="text-primary">.</span></h2>
+                <p class="text-slate-500 text-sm md:text-base max-w-xs text-left md:text-right">A combination of business strategy, aesthetic design, and clean code.</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-wrap gap-4 mb-16 reveal-on-scroll delay-100" id="portfolio-filters">
+                <button class="filter-btn active px-5 py-2 rounded-full border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary transition-all hoverable magnetic-btn" data-filter="all">All</button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary transition-all hoverable magnetic-btn" data-filter="design">UI/UX Design</button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary transition-all hoverable magnetic-btn" data-filter="dev">Development</button>
+                <button class="filter-btn px-5 py-2 rounded-full border border-slate-200 dark:border-white/10 text-sm font-bold text-slate-600 dark:text-slate-300 hover:border-primary hover:text-primary transition-all hoverable magnetic-btn" data-filter="mobile">Mobile</button>
+            </div>
+
+            <!-- Projects Grid — 5 unique projects, no duplicates -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-32" id="projects-grid">
+
+                <!-- 1. ShifaCare -->
+                <article class="project-item spotlight-card group cursor-pointer project-trigger hoverable reveal-on-scroll"
+                    data-filter-category="dev design"
+                    data-title="ShifaCare"
+                    data-category="UI/UX Design • Web Development"
+                    data-image="images/shifacare.png"
+                    data-desc="A comprehensive, secure digital healthcare platform bridging the gap between patients and clinics with online appointments and medical records management."
+                    data-year="2025"
+                    data-tech="HTML, CSS, Tailwind, JavaScript, PHP, MySQL">
+                    <div class="spotlight-overlay"></div>
+                    <div class="project-card relative w-full aspect-[4/3] bg-slate-200 dark:bg-surface rounded-2xl overflow-hidden mb-6 preserve-3d transition-transform duration-300 shadow-lg group-hover:shadow-xl border border-slate-200 dark:border-white/5">
+                        <div class="absolute inset-0 overflow-hidden transform-gpu">
+                            <img src="images/shifacare.png" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 parallax-img" alt="ShifaCare">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start border-b border-slate-200 dark:border-white/10 pb-4 relative z-10">
+                        <div>
+                            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">ShifaCare</h3>
+                            <p class="text-slate-500 text-sm">UI/UX Design • Web Development</p>
+                        </div>
+                        <span class="w-8 h-8 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 group-hover:bg-slate-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
+                            <i class="fas fa-plus group-hover:rotate-90 transition-transform"></i>
+                        </span>
+                    </div>
+                </article>
+
+                <!-- 2. Game Dashboard -->
+                <article class="project-item spotlight-card group cursor-pointer md:mt-24 project-trigger hoverable reveal-on-scroll delay-100"
+                    data-filter-category="dev design"
+                    data-title="Game Dashboard"
+                    data-category="UI/UX Design • React App"
+                    data-image="images/Game Dashboard Design.jpg"
+                    data-desc="A real-time game analytics dashboard. Interactive data visualizations with dynamic charts and live player statistics."
+                    data-year="2025"
+                    data-tech="React, JavaScript, D3.js, Tailwind CSS">
+                    <div class="spotlight-overlay"></div>
+                    <div class="project-card relative w-full aspect-[4/3] bg-slate-200 dark:bg-surface rounded-2xl overflow-hidden mb-6 preserve-3d transition-transform duration-300 shadow-lg group-hover:shadow-xl border border-slate-200 dark:border-white/5">
+                        <div class="absolute inset-0 overflow-hidden transform-gpu">
+                            <img src="images/Game Dashboard Design.jpg" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 parallax-img" alt="Game Dashboard">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start border-b border-slate-200 dark:border-white/10 pb-4 relative z-10">
+                        <div>
+                            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Game Dashboard</h3>
+                            <p class="text-slate-500 text-sm">UI/UX Design • React App</p>
+                        </div>
+                        <span class="w-8 h-8 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 group-hover:bg-slate-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
+                            <i class="fas fa-plus group-hover:rotate-90 transition-transform"></i>
+                        </span>
+                    </div>
+                </article>
+
+                <!-- 3. Darna Hotel -->
+                <article class="project-item spotlight-card group cursor-pointer project-trigger hoverable reveal-on-scroll"
+                    data-filter-category="dev design"
+                    data-title="Darna Hotel"
+                    data-category="UI/UX Design • Web Development"
+                    data-image="images/darana.png"
+                    data-desc="A premium hotel booking platform offering seamless reservation management, real-time availability updates, and an intuitive user journey tailored for modern hospitality."
+                    data-year="2025"
+                    data-tech="HTML, CSS, Tailwind, JavaScript, PHP, MySQL">
+                    <div class="spotlight-overlay"></div>
+                    <div class="project-card relative w-full aspect-[4/3] bg-slate-200 dark:bg-surface rounded-2xl overflow-hidden mb-6 preserve-3d transition-transform duration-300 shadow-lg group-hover:shadow-xl border border-slate-200 dark:border-white/5">
+                        <div class="absolute inset-0 overflow-hidden transform-gpu">
+                            <img src="images/darana.png" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 parallax-img" alt="Darna Hotel">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start border-b border-slate-200 dark:border-white/10 pb-4 relative z-10">
+                        <div>
+                            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Darna Hotel</h3>
+                            <p class="text-slate-500 text-sm">UI/UX Design • Web Development</p>
+                        </div>
+                        <span class="w-8 h-8 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 group-hover:bg-slate-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
+                            <i class="fas fa-plus group-hover:rotate-90 transition-transform"></i>
+                        </span>
+                    </div>
+                </article>
+
+                <!-- 4. Mizaniti — ONCE ONLY -->
+                <article class="project-item spotlight-card group cursor-pointer md:mt-24 project-trigger hoverable reveal-on-scroll delay-100"
+                    data-filter-category="mobile design"
+                    data-title="Mizaniti"
+                    data-category="UI/UX Design • Flutter Development"
+                    data-image="images/miz.png"
+                    data-desc="A smart personal finance and budget tracking mobile application developed with Flutter, featuring expense categorization and intuitive visual analytics."
+                    data-year="202"
+                    data-tech="Flutter, Dart, Firebase">
+                    <div class="spotlight-overlay"></div>
+                    <div class="project-card relative w-full aspect-[4/3] bg-slate-200 dark:bg-surface rounded-2xl overflow-hidden mb-6 preserve-3d transition-transform duration-300 shadow-lg group-hover:shadow-xl border border-slate-200 dark:border-white/5">
+                        <div class="absolute inset-0 overflow-hidden transform-gpu p-6 flex items-center justify-center">
+                            <img src="images/miz.png" loading="lazy" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 parallax-img" alt="Mizaniti">
+                            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start border-b border-slate-200 dark:border-white/10 pb-4 relative z-10">
+                        <div>
+                            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">Mizaniti</h3>
+                            <p class="text-slate-500 text-sm">UI/UX Design • Flutter App</p>
+                        </div>
+                        <span class="w-8 h-8 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 group-hover:bg-slate-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
+                            <i class="fas fa-plus group-hover:rotate-90 transition-transform"></i>
+                        </span>
+                    </div>
+                </article>
+
+                <!-- 5. ARRIVO — FIXED proper article tag -->
+          <article class="project-item spotlight-card group cursor-pointer project-trigger hoverable reveal-on-scroll"
+    data-filter-category="mobile dev"
+    data-title="ARRIVO"
+    data-category="Geofencing • Android Development"
+data-image="images/arrivo.png"
+    data-desc="A smart Location-Based Reminder mobile application designed to trigger notifications when users arrive at or pass by specific places using Geofencing (GIS)."
+    data-year="2026"
+    data-tech="Java, Android, Geofencing API, Google Maps">
+
+    <div class="spotlight-overlay"></div>
+
+    <div class="project-card relative w-full aspect-[4/3] bg-slate-200 dark:bg-surface rounded-2xl overflow-hidden mb-6 preserve-3d transition-transform duration-300 shadow-lg group-hover:shadow-xl border border-slate-200 dark:border-white/5">
+
+        <div class="absolute inset-0 overflow-hidden transform-gpu p-6 flex items-center justify-center">
+
+
+            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+        </div>
+
+    </div>
+
+    <div class="flex justify-between items-start border-b border-slate-200 dark:border-white/10 pb-4 relative z-10">
+        <div>
+            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors">
+                ARRIVO
+            </h3>
+            <p class="text-slate-500 text-sm">Geofencing • Android App</p>
+        </div>
+
+        <span class="w-8 h-8 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 group-hover:bg-slate-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
+            <i class="fas fa-plus group-hover:rotate-90 transition-transform"></i>
+        </span>
+    </div>
+
+</article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section-spy py-24 relative overflow-hidden">
+        <div class="container mx-auto px-6 max-w-6xl relative z-10">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-16 text-center reveal-on-scroll">Client Stories<span class="text-primary">.</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-slate-50 dark:bg-surface border border-slate-200 dark:border-white/10 p-8 rounded-2xl relative reveal-on-scroll" dir="ltr">
+                    <div class="text-primary text-4xl absolute top-6 right-8 opacity-20"><i class="fas fa-quote-right"></i></div>
+                    <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-6 italic">"Zakaria is a dedicated and disciplined developer. During his software projects at the University of Biskra, he showed a strong understanding of coding standards, problem-solving, and practical user experience. He writes clean code and delivers his work on time."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 overflow-hidden"><i class="fas fa-user-tie text-2xl"></i></div>
+                        <div class="text-left">
+                            <h4 class="font-bold text-slate-900 dark:text-white">Project Supervisor</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider">Computer Science Dept, University of Biskra</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 dark:bg-surface border border-slate-200 dark:border-white/10 p-8 rounded-2xl relative reveal-on-scroll delay-100">
+                    <span class="absolute top-6 left-8 text-[10px] font-bold uppercase tracking-widest bg-primary/10 text-primary dark:bg-primary/20 px-3 py-1 rounded-full">Success Story</span>
+                    <div class="text-primary text-4xl absolute top-6 right-8 opacity-20"><i class="fas fa-quote-right"></i></div>
+                    <p class="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-6 italic mt-6">"Zakaria joined our CMP engineering team as a trainee, but his impact was that of a professional. He successfully analyzed our fiber infrastructure, contributed to optimizing network routing for MSAN and OLT systems, and documented a highly accurate technical framework."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-slate-300 rounded-full overflow-hidden flex items-center justify-center text-primary dark:bg-white/10"><i class="fas fa-network-wired text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white">Network Infrastructure Dept.</h4>
+                            <p class="text-xs text-slate-500 uppercase tracking-wider">Algérie Télécom (CMP)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section-spy py-24 md:py-32 relative overflow-hidden bg-slate-100 dark:bg-[#080808]">
+        <div class="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative z-10 max-w-5xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="text-center lg:text-left">
+                    <h2 class="font-display text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 tracking-tighter leading-tight reveal-on-scroll">Let's build something amazing.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Legendary.</span></h2>
+                    <p class="text-slate-500 mb-8 text-lg reveal-on-scroll delay-100">Whether you have a project in mind or just want to say hello, my inbox is always open.</p>
+                    <div class="space-y-4 text-left hidden lg:block reveal-on-scroll delay-200">
+                        <a href="mailto:zakaria.atrous25@gmail.com" class="inline-flex items-center gap-4 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-white hover:border-primary dark:hover:border-primary px-6 py-3 rounded-xl transition-all duration-300 group">
+                            <i class="fas fa-envelope text-primary w-6 transition-transform group-hover:rotate-12"></i><span>zakaria.atrous25@gmail.com</span>
+                        </a>
+                        <a href="https://wa.me/213554754009" target="_blank" rel="noopener" class="inline-flex items-center gap-4 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-white hover:border-primary dark:hover:border-primary px-6 py-3 rounded-xl transition-all duration-300 group">
+                            <i class="fas fa-phone text-primary w-6 transition-transform group-hover:rotate-12"></i><span dir="ltr">+213 554 75 40 09</span>
+                        </a>
+                        <div class="flex items-center gap-4 text-slate-600 dark:text-slate-400"><i class="fas fa-map-marker-alt text-primary w-6"></i><span>Ourlal, Biskra, Algeria</span></div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-surface p-8 rounded-3xl shadow-xl border border-slate-200 dark:border-white/10 reveal-on-scroll delay-300">
+                    <form class="space-y-6" id="contact-form">
+                        <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Name</label><input type="text" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all dark:text-white" placeholder="Your Name" required></div>
+                        <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Email</label><input type="email" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all dark:text-white" placeholder="email@example.com" required></div>
+                        <div><label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Message</label><textarea rows="4" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all dark:text-white" placeholder="Tell me about your project..." required></textarea></div>
+                        <button type="submit" class="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-black rounded-xl font-bold text-lg hover:scale-[1.02] transition-transform shadow-lg hoverable magnetic-btn focus:outline-none">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <footer class="mt-24 pt-8 border-t border-slate-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 reveal-on-scroll">
+                <div class="flex gap-6 mb-4 md:mb-0">
+                    <a href="https://www.linkedin.com/in/abd-el-mouneime-essayd-589a63304" class="hover:text-primary transition-colors hoverable magnetic-btn">LinkedIn</a>
+                    <a href="https://www.facebook.com/share/1E81CSEzfq/" target="_blank" rel="noopener" class="hover:text-primary transition-colors hoverable magnetic-btn">Facebook</a>
+                    <a href="https://www.instagram.com/__zakaria___213_?vrfl=Ymx2NWQ2am05dm9h" target="_blank" rel="noopener" class="hover:text-primary transition-colors hoverable magnetic-btn">Instagram</a>
+                    <a href="https://github.com/zaki20050816" target="_blank" rel="noopener" class="hover:text-primary transition-colors hoverable magnetic-btn">GitHub</a>
+                </div>
+                <div>© <span id="year">2026</span> Zakaria. All rights reserved.</div>
+            </footer>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0" id="modal-backdrop"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
+            <div class="bg-white dark:bg-[#111] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300 pointer-events-auto border border-slate-200 dark:border-white/10" id="modal-content">
+                <div class="relative">
+                    <button id="close-modal" aria-label="Close" class="absolute top-4 right-4 w-10 h-10 bg-white/50 dark:bg-black/50 backdrop-blur rounded-full flex items-center justify-center text-slate-900 dark:text-white hover:bg-red-500 hover:text-white transition-colors z-10 hoverable focus:outline-none"><i class="fas fa-times"></i></button>
+                    <div class="h-64 md:h-96 w-full overflow-hidden"><img id="modal-image" src="" class="w-full h-full object-cover" alt="Project"></div>
+                    <div class="p-8 md:p-12">
+                        <div class="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
+                            <div>
+                                <span id="modal-category" class="text-primary font-bold text-sm tracking-widest uppercase mb-2 block">Category</span>
+                                <h2 id="modal-title" class="text-3xl md:text-5xl font-display font-bold text-slate-900 dark:text-white">Title</h2>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                            <div class="md:col-span-2">
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">About the Project</h3>
+                                <p id="modal-desc" class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg"></p>
+                            </div>
+                            <div class="space-y-6">
+                                <div><h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Technologies</h4><div class="flex flex-wrap gap-2" id="modal-project-tech"></div></div>
+                                <div><h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Year</h4><p id="modal-year" class="text-slate-600 dark:text-slate-400"></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CV MODAL ===== -->
+    <div id="cv-modal">
+        <div id="cv-modal-backdrop" onclick="closeCV()"></div>
+        <div id="cv-modal-box">
+            <!-- Download bar -->
+            <div class="cv-download-bar">
+                <div class="cv-download-brand">Zakaria<span>.</span> — Curriculum Vitae</div>
+                <div style="display:flex;gap:10px;align-items:center;">
+                    <button class="cv-dl-btn" onclick="printCV()"><i class="fas fa-download"></i> Download PDF</button>
+                    <button onclick="closeCV()" id="cv-modal-close" style="background:rgba(255,255,255,0.1);color:white;border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.7)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <!-- CV Header -->
+            <div class="cv-header">
+                <img src="images/profile.jpg" alt="Zakaria Atrous" class="cv-photo">
+                <div class="cv-header-info">
+                    <div class="cv-name">Zakaria Atrous</div>
+                    <div class="cv-title">Frontend Developer &amp; UI/UX Designer</div>
+                    <div class="cv-contacts">
+                        <a href="mailto:zakaria.atrous25@gmail.com" class="cv-contact-item"><i class="fas fa-envelope"></i> zakaria.atrous25@gmail.com</a>
+                        <a href="https://wa.me/213554754009" class="cv-contact-item"><i class="fas fa-phone"></i> +213 5547 540 09</a>
+                        <span class="cv-contact-item"><i class="fas fa-map-marker-alt"></i> Ourlal, Biskra, Algeria</span>
+                        <a href="https://github.com/zaki20050816" class="cv-contact-item" target="_blank"><i class="fab fa-github"></i> github.com/zaki20050816</a>
+                        <a href="https://www.linkedin.com/in/abd-el-mouneime-essayd-589a63304" class="cv-contact-item" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <!-- CV Body -->
+            <div class="cv-body">
+                <!-- Main -->
+                <div class="cv-main">
+                    <div class="cv-section">
+                        <div class="cv-section-title">Profile</div>
+                        <p class="cv-summary">Frontend Developer and UI/UX Designer based in Biskra, Algeria, currently pursuing a Licence's degree in Computer Science at Mohamed Khider University. Specialized in building high-performance, visually engaging web and mobile applications. 2+ years of freelance experience delivering full-stack solutions with a strong focus on clean code and real impact.</p>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Experience</div>
+                        <div class="cv-exp-item">
+                            <div class="cv-exp-header"><div class="cv-exp-title">Freelance Frontend Developer &amp; UI/UX Designer</div><div class="cv-exp-date">2024 – Present</div></div>
+                            <div class="cv-exp-company">Self-Employed · Remote</div>
+                            <ul class="cv-exp-desc"><li>Designed and developed full-stack web applications for clients across various sectors.</li><li>Built responsive interfaces using HTML, CSS, Tailwind CSS, JavaScript and PHP.</li><li>Delivered 10+ projects on time with strong client satisfaction.</li></ul>
+                        </div>
+                        <div class="cv-exp-item">
+                            <div class="cv-exp-header"><div class="cv-exp-title">Network Engineering Intern</div><div class="cv-exp-date">2025</div></div>
+                            <div class="cv-exp-company">Algérie Télécom (CMP — CPM2 Transmission Center) · Biskra</div>
+                            <ul class="cv-exp-desc"><li>Analyzed fiber-optic infrastructure and MSAN/OLT routing systems.</li><li>Documented BSS/SDM/CWFM network architecture used as technical reference.</li></ul>
+                        </div>
+                        <div class="cv-exp-item">
+                            <div class="cv-exp-header"><div class="cv-exp-title">Academic Software Developer</div><div class="cv-exp-date">2023 – 2026</div></div>
+                            <div class="cv-exp-company">Mohamed Khider University of Biskra</div>
+                            <ul class="cv-exp-desc"><li>Developed academic projects: web apps, Android apps, and desktop tools.</li><li>Applied OOP, databases, algorithms, and networking principles.</li></ul>
+                        </div>
+                    </div>
+                    <div class="cv-section">
+                        <div class="cv-section-title">Selected Projects</div>
+                        <div class="cv-proj-item"><div><div class="cv-proj-name">ShifaCare — Healthcare Platform</div><div class="cv-proj-desc">PHP/MySQL platform with patient, doctor, admin modules and online appointments.</div><div class="cv-tech-list"><span class="cv-tech-badge">PHP</span><span class="cv-tech-badge">MySQL</span><span class="cv-tech-badge">Tailwind</span><span class="cv-tech-badge">JavaScript</span></div></div><div class="cv-proj-year">2025</div></div>
+                        <div class="cv-proj-item"><div><div class="cv-proj-name">Darna Hotel — Booking Platform</div><div class="cv-proj-desc">Premium hotel booking platform with real-time availability and reservation management.</div><div class="cv-tech-list"><span class="cv-tech-badge">PHP</span><span class="cv-tech-badge">MySQL</span><span class="cv-tech-badge">Tailwind</span></div></div><div class="cv-proj-year">2025</div></div>
+                        <div class="cv-proj-item"><div><div class="cv-proj-name">Mizaniti — Finance App</div><div class="cv-proj-desc">Smart budget tracker with expense categorization and visual analytics, built with Flutter.</div><div class="cv-tech-list"><span class="cv-tech-badge">Flutter</span><span class="cv-tech-badge">Dart</span><span class="cv-tech-badge">Firebase</span></div></div><div class="cv-proj-year">2024</div></div>
+                        <div class="cv-proj-item"><div><div class="cv-proj-name">ARRIVO — Geofencing App</div><div class="cv-proj-desc">Android location-based reminder app using Geofencing API to trigger smart notifications.</div><div class="cv-tech-list"><span class="cv-tech-badge">Java</span><span class="cv-tech-badge">Android</span><span class="cv-tech-badge">Geofencing</span></div></div><div class="cv-proj-year">2025</div></div>
+                    </div>
+                </div>
+                <!-- Sidebar -->
+                <div class="cv-sidebar">
+                    <div class="sidebar-section" style="margin-bottom:20px;">
+                        <div class="cv-section-title" style="font-size:10px;font-weight:700;color:var(--cv-primary);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--cv-primary);">Education</div>
+                        <div class="cv-edu-item"><div class="cv-edu-degree">Licence in Computer Science</div><div class="cv-edu-school">Mohamed Khider University, Biskra</div><div class="cv-edu-year">2023 – 2026</div></div>
+                        <div class="cv-edu-item"><div class="cv-edu-degree">Master's Degree (Upcoming)</div><div class="cv-edu-school">University of Biskra</div><div class="cv-edu-year">2026 – Present</div></div>
+                        <div class="cv-edu-item"><div class="cv-edu-degree">Baccalaureate — Sciences</div><div class="cv-edu-school">Algeria</div><div class="cv-edu-year">2023</div></div>
+                    </div>
+                    <div class="sidebar-section" style="margin-bottom:20px;">
+                        <div class="cv-section-title" style="font-size:10px;font-weight:700;color:var(--cv-primary);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--cv-primary);">Technical Skills</div>
+                        <div class="cv-skill-group"><div class="cv-skill-group-name">Frontend</div><div class="cv-skill-tags"><span class="cv-skill-tag cv-primary">HTML/CSS</span><span class="cv-skill-tag cv-primary">JavaScript</span><span class="cv-skill-tag cv-primary">Tailwind</span><span class="cv-skill-tag">React</span><span class="cv-skill-tag">Next.js</span></div></div>
+                        <div class="cv-skill-group"><div class="cv-skill-group-name">Backend</div><div class="cv-skill-tags"><span class="cv-skill-tag cv-primary">PHP</span><span class="cv-skill-tag">MySQL</span><span class="cv-skill-tag">Node.js</span></div></div>
+                        <div class="cv-skill-group"><div class="cv-skill-group-name">Mobile</div><div class="cv-skill-tags"><span class="cv-skill-tag cv-primary">Flutter</span><span class="cv-skill-tag cv-primary">Java (Android)</span></div></div>
+                        <div class="cv-skill-group"><div class="cv-skill-group-name">Tools</div><div class="cv-skill-tags"><span class="cv-skill-tag">Figma</span><span class="cv-skill-tag">Git/GitHub</span><span class="cv-skill-tag">VS Code</span></div></div>
+                    </div>
+                    <div class="sidebar-section" style="margin-bottom:20px;">
+                        <div class="cv-section-title" style="font-size:10px;font-weight:700;color:var(--cv-primary);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--cv-primary);">Languages</div>
+                        <div class="cv-lang-item"><div class="cv-lang-header"><span class="cv-lang-name">Arabic</span><span class="cv-lang-level">Native</span></div><div class="cv-lang-bar"><div class="cv-lang-fill" style="width:100%"></div></div></div>
+                        <div class="cv-lang-item"><div class="cv-lang-header"><span class="cv-lang-name">English</span><span class="cv-lang-level">Professional</span></div><div class="cv-lang-bar"><div class="cv-lang-fill" style="width:85%"></div></div></div>
+                        <div class="cv-lang-item"><div class="cv-lang-header"><span class="cv-lang-name">French</span><span class="cv-lang-level">Intermediate</span></div><div class="cv-lang-bar"><div class="cv-lang-fill" style="width:65%"></div></div></div>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="cv-section-title" style="font-size:10px;font-weight:700;color:var(--cv-primary);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--cv-primary);">Soft Skills</div>
+                        <ul class="cv-soft-list"><li>Clean Code Advocate</li><li>Problem Solver</li><li>UI/UX Thinking</li><li>Fast Learner</li><li>Team Collaboration</li><li>Deadline-Oriented</li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/213554754009" target="_blank" aria-label="WhatsApp" class="fixed bottom-8 right-8 z-[60] w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 hoverable magnetic-btn group">
+        <span class="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-30 animate-ping"></span>
+        <i class="fab fa-whatsapp text-3xl leading-none z-10 group-hover:rotate-12 transition-transform"></i>
+    </a>
+
+    <!-- Scroll to Top -->
+    <button id="scrollToTopBtn" aria-label="Scroll to Top" class="fixed bottom-28 right-8 z-50 w-12 h-12 bg-white dark:bg-surface border border-slate-200 dark:border-white/20 rounded-full flex items-center justify-center text-slate-600 dark:text-white shadow-lg translate-y-20 opacity-0 transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-1 hoverable focus:outline-none">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script>
+    // === PRELOADER ===
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        setTimeout(() => {
+            preloader.classList.add('hide');
+            setTimeout(() => { preloader.style.display = 'none'; }, 600);
+        }, 1000);
+        document.getElementById('year').textContent = new Date().getFullYear();
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Safety fallback: ensure hero elements show after 2.5s
+        setTimeout(() => {
+            document.querySelectorAll('.hero-badge, .hero-heading-line, .hero-description, .hero-buttons, .hero-image-container').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+                el.style.filter = 'blur(0)';
+            });
+        }, 2500);
+    });
+
+    function updateTime() {
+        const el = document.getElementById('local-time');
+        if (el) {
+            const now = new Date();
+            el.textContent = now.toLocaleTimeString('en-DZ', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Africa/Algiers' });
+        }
+    }
+
+    // === DARK MODE ===
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    themeToggle.addEventListener('click', () => {
+        html.classList.toggle('dark');
+        localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        themeToggle.innerHTML = html.classList.contains('dark') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+
+    // === MOBILE MENU ===
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMenu() {
+        const isOpen = mobileMenu.style.opacity === '1';
+        mobileMenu.style.opacity = isOpen ? '0' : '1';
+        mobileMenu.style.pointerEvents = isOpen ? 'none' : 'auto';
+    }
+    menuBtn.addEventListener('click', toggleMenu);
+    closeMenuBtn.addEventListener('click', toggleMenu);
+    mobileLinks.forEach(l => l.addEventListener('click', toggleMenu));
+
+    // === SCROLL & NAV SPY ===
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    const sections = document.querySelectorAll('.section-spy');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+        scrollToTopBtn.classList.toggle('translate-y-20', window.scrollY <= 300);
+        scrollToTopBtn.classList.toggle('opacity-0', window.scrollY <= 300);
+        let current = '';
+        sections.forEach(s => { if (pageYOffset >= s.offsetTop - 200) current = s.getAttribute('id'); });
+        navLinks.forEach(link => {
+            link.classList.remove('text-primary', 'font-bold');
+            link.classList.add('text-slate-600', 'dark:text-slate-400');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('text-primary', 'font-bold');
+                link.classList.remove('text-slate-600');
+            }
+        });
+    });
+    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // === PROJECT FILTER — FIXED ===
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter');
+            projectItems.forEach(item => {
+                const cats = (item.getAttribute('data-filter-category') || '').split(' ');
+                const show = filter === 'all' || cats.includes(filter);
+                item.style.display = show ? 'block' : 'none';
+                if (show) item.classList.add('is-visible');
+            });
+        });
+    });
+
+    // === 3D TILT ===
+    if (window.matchMedia('(min-width: 768px)').matches) {
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const r = card.getBoundingClientRect();
+                const x = e.clientX - r.left, y = e.clientY - r.top;
+                const rx = ((y - r.height/2) / r.height) * -3;
+                const ry = ((x - r.width/2) / r.width) * 3;
+                card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.01,1.01,1.01)`;
+            });
+            card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)'; });
+        });
+    }
+
+    // === PARALLAX ===
+    window.addEventListener('scroll', () => {
+        document.querySelectorAll('.parallax-img').forEach(img => {
+            const rect = img.parentElement.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                img.style.transform = `translateY(${(window.innerHeight - rect.top) * 0.08 - 20}px) scale(1.1)`;
+            }
+        });
+    });
+
+    // === PROJECT MODAL ===
+    const modal = document.getElementById('project-modal');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalContent = document.getElementById('modal-content');
+    const closeModal = document.getElementById('close-modal');
+
+    function openModal(data) {
+        document.getElementById('modal-title').textContent = data.title;
+        document.getElementById('modal-category').textContent = data.category;
+        document.getElementById('modal-image').src = data.image;
+        document.getElementById('modal-desc').textContent = data.desc;
+        const mYear = document.getElementById('modal-year');
+        if (mYear) mYear.textContent = data.year ?? '';
+        const techWrap = document.getElementById('modal-project-tech');
+        if (techWrap) {
+            techWrap.innerHTML = '';
+            (data.tech || []).forEach(t => {
+                if (!t) return;
+                const span = document.createElement('span');
+                span.className = 'px-3 py-1 bg-slate-100 dark:bg-white/10 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300';
+                span.textContent = t;
+                techWrap.appendChild(span);
+            });
+        }
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modalBackdrop.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+        modalBackdrop.classList.add('opacity-0');
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = ''; }, 300);
+    }
+
+    document.querySelectorAll('.project-trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => openModal({
+            title: trigger.dataset.title,
+            category: trigger.dataset.category,
+            image: trigger.dataset.image,
+            desc: trigger.dataset.desc,
+            year: trigger.dataset.year,
+            tech: trigger.dataset.tech ? trigger.dataset.tech.split(',').map(s => s.trim()).filter(Boolean) : []
+        }));
+    });
+
+    closeModal.addEventListener('click', hideModal);
+    modalBackdrop.addEventListener('click', hideModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { hideModal(); closeCV(); } });
+
+    // === CV MODAL ===
+    function openCV() {
+        const m = document.getElementById('cv-modal');
+        m.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeCV() {
+        const m = document.getElementById('cv-modal');
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    function printCV() {
+        window.print();
+    }
+
+    // === TOAST ===
+    const toastContainer = document.getElementById('toast-container');
+    function showToast(msg, type = 'success') {
+        const toast = document.createElement('div');
+        const icon = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-exclamation-circle"></i>';
+        const color = type === 'success' ? 'bg-slate-900 text-white dark:bg-white dark:text-black' : 'bg-red-500 text-white';
+        toast.className = `flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl font-medium text-sm toast-enter toast-enter-active ${color}`;
+        toast.innerHTML = `${icon} <span>${msg}</span>`;
+        toastContainer.appendChild(toast);
+        setTimeout(() => { toast.classList.remove('toast-enter-active'); toast.classList.add('toast-exit-active'); setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    // === EMAILJS ===
+    emailjs.init('9Pqq5KXCM3wuVy14z');
+    document.getElementById('contact-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = e.target.querySelector('button');
+        const orig = btn.innerHTML;
+        const name = e.target.querySelector('input[type="text"]').value.trim();
+        const email = e.target.querySelector('input[type="email"]').value.trim();
+        const message = e.target.querySelector('textarea').value.trim();
+        if (!name || !email || !message) { showToast('Please fill in all fields.', 'error'); return; }
+        btn.innerHTML = '<i class="fas fa-circle-notch animate-spin"></i> Sending...';
+        btn.disabled = true;
+        emailjs.send('service_9ryq9ui', 'template_b0qcybv', { from_name: name, from_email: email, message, reply_to: email })
+            .then(() => { showToast("Message sent! I'll get back to you soon."); e.target.reset(); btn.innerHTML = orig; btn.disabled = false; })
+            .catch(() => { showToast('Failed to send. Please try again.', 'error'); btn.innerHTML = orig; btn.disabled = false; });
+    });
+
+    // === SCROLL REVEAL ===
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    // === MAGNETIC BTNS ===
+    if (window.matchMedia('(min-width: 768px)').matches) {
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const r = btn.getBoundingClientRect();
+                btn.style.transform = `translate(${(e.clientX - r.left - r.width/2) * 0.2}px, ${(e.clientY - r.top - r.height/2) * 0.2}px)`;
+            });
+            btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+        });
+    }
+
+    // === SPOTLIGHT ===
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+        });
+    });
+    </script>
+
+</body>
+</html>
